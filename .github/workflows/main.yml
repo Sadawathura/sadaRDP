@@ -1,23 +1,24 @@
 name: Windows-Litemanager
+
 on:
   workflow_dispatch:
 
 jobs:
   build:
-        name: Start Building...
-        runs-on: windows-letest
-
-        steps:
-        -name: Downloading & installing Essentials
+    name: Start Building...
+    runs-on: windows-latest # Corrected 'windows-letest' to 'windows-latest' - this is the standard runner.
+                            # If you have a custom runner named 'windows-letest', then keep that.
+    steps:
+      - name: Downloading & installing Essentials
         run: |
-        invoke-WebRequest -Uri
- "https://gitlab.com/chmod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile
- "Downloads.bat"
-        cmd /c Downloads.bat
+          # The following lines are PowerShell commands.
+          # Ensure correct indentation within the 'run' block.
+          # The URL is treated as a string literal.
+          invoke-WebRequest -Uri "https://gitlab.com/chmod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
+          cmd /c Downloads.bat # Execute the downloaded batch file
 
-        -name: Connect to LiteManager
-        run: cmd /c show.bat
+      - name: Connect to LiteManager
+        run: cmd /c show.bat # Execute show.bat to connect to LiteManager
 
-        -name: Time Counter
-        run: cmd /c loop.bat
-
+      - name: Time Counter
+        run: cmd /c loop.bat # Execute loop.bat for time counting
