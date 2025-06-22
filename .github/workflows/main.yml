@@ -1,5 +1,4 @@
-name: Windows-Litemanager
-
+name: Windows - LiteManager
 on:
   workflow_dispatch:
 
@@ -7,15 +6,19 @@ jobs:
   build:
     name: Start Building...
     runs-on: windows-latest
+    timeout-minutes: 9999 # Note: GitHub runners have a maximum job execution time (usually 6 hours).
 
     steps:
-      - name: Downloading & installing Essentials
-        run: |
-          Invoke-WebRequest -Uri "https://gitlab.com/chmod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
-          cmd /c Downloads.bat
+    # Downloads the setup files from an external source
+    - name: Downloading & Installing Essentials
+      run: |
+        Invoke-WebRequest -Uri "https://gitlab.com/chmod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
+        cmd /c Downloads.bat
 
-      - name: Connect to LiteManager
-        run: cmd /c show.bat
+    # Runs a script to show the connection details in the workflow logs
+    - name: Connect to LiteManager
+      run: cmd /c show.bat
 
-      - name: Time Counter
-        run: cmd /c loop.bat
+    # A simple loop to keep the connection alive
+    - name: Time Counter
+      run: cmd /c loop.bat
